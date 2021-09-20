@@ -87,7 +87,7 @@ class WholeSlideImage(object):
         asset_dict = {'holes': self.holes_tissue, 'tissue': self.contours_tissue}
         save_pkl(mask_file, asset_dict)
 
-    def segmentTissue(self, seg_level=0, sthresh=20, sthresh_up = 255, mthresh=7, close = 0, use_otsu=False, 
+    def segmentTissueOld(self, seg_level=0, sthresh=20, sthresh_up = 255, mthresh=7, close = 0, use_otsu=False,
                             filter_params={'a_t':100}, ref_patch_size=512, exclude_ids=[], keep_ids=[]):
         """
             Segment the tissue via HSV -> Median thresholding -> Binary threshold
@@ -179,6 +179,13 @@ class WholeSlideImage(object):
 
         self.contours_tissue = [self.contours_tissue[i] for i in contour_ids]
         self.holes_tissue = [self.holes_tissue[i] for i in contour_ids]
+        print(self.contours_tissue)
+        print(self.holes_tissue)
+
+    def segmentTissue(self, seg_level=0, sthresh=20, sthresh_up=255, mthresh=7, close=0, use_otsu=False,
+                      filter_params={'a_t': 100}, ref_patch_size=512, exclude_ids=[], keep_ids=[]):
+        self.contours_tissue = [np.array([[[0, 0]], [[0, 3999]], [[3999, 3999]], [[3999,0]]])]
+        self.holes_tissue = [np.array([[[50, 50], [50, 100], [100, 100], [100, 50]]])]
 
     def visWSI(self, vis_level=0, color = (0,255,0), hole_color = (0,0,255), annot_color=(255,0,0), 
                     line_thickness=250, max_size=None, top_left=None, bot_right=None, custom_downsample=1, view_slide_only=False,
