@@ -1,0 +1,12 @@
+Commands:
+
+python3 create_patches_fp.py --source datasets/dataset1/ --save_dir results/results1 --patch_size 256 --seg --patch --stitch
+
+python3 extract_features_fp.py --data_h5_dir results/results1/ --data_slide_dir datasets/dataset1/ --csv_path results/results1/reformatted.csv --feat_dir ./results/results1/features --batch_size 512 --slide_ext .tiff
+
+python3 create_splits_seq.py --task synthetic_tumor_vs_normal --seed 1 --label_frac 0.50 --k 10
+
+python3 main.py --drop_out --early_stopping --lr 2e-4 --k 10 --label_frac 0.5 --exp_code task_1_synthetic_tumor_vs_normal_CLAM_50 --weighted_sample --bag_loss ce --inst_loss svm --task synthetic_tumor_vs_normal --model_type clam_sb --log_data --data_root_dir results/results1/
+
+
+* Where you see the --task arg, you may need to add your custom task to the argparser and create a custom elif statement in the respective file to handle it.
