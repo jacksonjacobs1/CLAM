@@ -2,7 +2,7 @@ import numpy
 import pandas as pd
 import numpy as np
 original_path = './results/results1/process_list_autogen.csv'
-new_path = './results/results1/reformatted.csv'
+new_path = './results/results1/reformatted(1).csv'
 
 
 def reformat_csv(og_path, new_path):
@@ -27,7 +27,7 @@ def reformat_csv(og_path, new_path):
 
         df_new["case_id"][i] = slide_num
         df_new["slide_id"][i] = name
-        df_new["label"][i] = 0 if slide_num < 50 else 1
+        df_new["label"][i] = 'normal_tissue' if slide_num < 50 else 'tumor_tissue'
 
     # save csv
     df_new.to_csv(new_path)

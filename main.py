@@ -178,8 +178,15 @@ elif args.task == 'task_2_tumor_subtyping':
 
 elif args.task == 'synthetic_tumor_vs_normal':
     args.n_classes = 2
-    dataset = Generic_MIL_Dataset(csv_path= os.path.join(args.results_dir, 'reformatted.csv'),
-                                  data_dir=os.path.join(args.data_root_dir, ''))
+    dataset = Generic_MIL_Dataset(csv_path= os.path.join(args.results_dir, 'results1/reformatted.csv'),
+                                  data_dir=os.path.join(args.results_dir, 'results1/features'),
+                                  shuffle = False,
+                                  seed = args.seed,
+                                  print_info = True,
+                                  label_dict = {'normal_tissue': 0, 'tumor_tissue': 1},
+                                  patient_strat = False,
+                                  ignore=[]
+                                  )
 
 else:
     raise NotImplementedError
